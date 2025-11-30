@@ -1,5 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Material 3 Primary Colors -->
+    <color name="md_theme_light_primary">#0D47A1</color>
+    <color name="md_theme_light_onPrimary">#FFFFFF</color>
+    <color name="md_theme_light_primaryContainer">#BBDEFB</color>
+    <color name="md_theme_light_onPrimaryContainer">#002171</color>
+    
+    <!-- Material 3 Secondary Colors -->
+    <color name="md_theme_light_secondary">#00897B</color>
+    <color name="md_theme_light_onSecondary">#FFFFFF</color>
+    <color name="md_theme_light_secondaryContainer">#B2DFDB</color>
+    <color name="md_theme_light_onSecondaryContainer">#004D40</color>
+    
+    <!-- Material 3 Tertiary Colors -->
+    <color name="md_theme_light_tertiary">#C62828</color>
+    <color name="md_theme_light_onTertiary">#FFFFFF</color>
+    <color name="md_theme_light_tertiaryContainer">#FFCDD2</color>
+    <color name="md_theme_light_onTertiaryContainer">#8B0000</color>
+    
+    <!-- Material 3 Neutral Colors -->
+    <color name="md_theme_light_background">#FAFAFA</color>
+    <color name="md_theme_light_onBackground">#1F1F1F</color>
+    <color name="md_theme_light_surface">#FFFFFF</color>
+    <color name="md_theme_light_onSurface">#1F1F1F</color>
+    <color name="md_theme_light_outline">#B0B0B0</color>
+    <color name="md_theme_light_outlineVariant">#D0D0D0</color>
+    
+    <!-- Additional Colors -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="light_gray">#F5F5F5</color>
+    <color name="medium_gray">#E0E0E0</color>
+    <color name="dark_gray">#424242</color>
+    <color name="error_red">#B3261E</color>
+    <color name="success_green">#2E7D32</color>
 </resources>

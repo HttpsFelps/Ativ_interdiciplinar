@@ -41,6 +41,8 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             viewModel.pessoas.collectLatest { lista ->
                 adapter.update(lista)
+                // Atualiza contador de pessoas
+                binding.tvCount.text = lista.size.toString()
                 // Ao atualizar a lista, limpar seleção e desabilitar ações
                 adapter.clearSelection()
                 binding.btnGetById.isEnabled = false
@@ -54,9 +56,6 @@ class MainActivity : AppCompatActivity() {
             viewModel.loadPessoas()
             binding.swipeRefresh.isRefreshing = false
         }
-
-        // Label / subtitle
-        binding.toolbar.subtitle = "App de exemplo: CRUD de Pessoas via API"
 
         // Botões de navegação para cada ação
         binding.btnCreate.setOnClickListener {

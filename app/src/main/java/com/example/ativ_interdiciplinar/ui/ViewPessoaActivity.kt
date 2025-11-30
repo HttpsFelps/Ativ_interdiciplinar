@@ -1,63 +1,63 @@
 package com.example.ativ_interdiciplinar.ui
 
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.example.ativ_interdiciplinar.R
+import com.example.ativ_interdiciplinar.databinding.ActivityViewPessoaBinding
 import com.example.ativ_interdiciplinar.data.Pessoa
 import com.example.ativ_interdiciplinar.viewmodel.PessoaViewModel
 
 class ViewPessoaActivity : AppCompatActivity() {
 
     private val viewModel: PessoaViewModel by viewModels()
+    private lateinit var binding: ActivityViewPessoaBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_view_pessoa)
+        try {
+            binding = ActivityViewPessoaBinding.inflate(layoutInflater)
+            setContentView(binding.root)
 
-        val tvNome: TextView = findViewById(R.id.tvNome)
-        val tvEmail: TextView = findViewById(R.id.tvEmail)
-        val tvTelefone: TextView = findViewById(R.id.tvTelefone)
-        val tvCpf: TextView = findViewById(R.id.tvCpf)
-        val tvIdade: TextView = findViewById(R.id.tvIdade)
-        val tvEndereco: TextView = findViewById(R.id.tvEndereco)
-        val btnClose: Button = findViewById(R.id.btnClose)
+            val tvNome = binding.tvNome
+            val tvEmail = binding.tvEmail
+            val tvTelefone = binding.tvTelefone
+            val tvCpf = binding.tvCpf
+            val tvIdade = binding.tvIdade
+            val btnClose = binding.btnClose
 
-        val id = intent.getIntExtra("pessoa_id", -1)
-        if (id == -1) {
-            Toast.makeText(this, "ID inválido", Toast.LENGTH_SHORT).show()
-            finish()
-            return
-        }
+            // Setup toolbar
+            binding.toolbar.setNavigationOnClickListener {
+                finish()
+            }
 
-        viewModel.getPessoaById(id) { pessoa ->
-            runOnUiThread {
-                if (pessoa != null) {
-                    bind(pessoa, tvNome, tvEmail, tvTelefone, tvCpf, tvIdade, tvEndereco)
-                } else {
-                    Toast.makeText(this, "Pessoa não encontrada", Toast.LENGTH_SHORT).show()
-                    finish()
+            val id = intent.getIntExtra("pessoa_id", -1)
+            if (id == -1) {
+                Toast.makeText(this@ViewPessoaActivity, "ID inválido", Toast.LENGTH_SHORT).show()
+                finish()
+                return
+            }
+
+            viewModel.getPessoaById(id) { pessoa ->
+                runOnUiThread {
+                    if (pessoa != null) {
+                        tvNome.text = pessoa.nome ?: "—"
+                        tvEmail.text = pessoa.email ?: "—"
+                        tvTelefone.text = pessoa.telefone ?: "—"
+                        tvCpf.text = pessoa.cpf ?: "—"
+                        tvIdade.text = if (pessoa.idade != null) "${pessoa.idade} anos" else "—"
+                    } else {
+                        Toast.makeText(this@ViewPessoaActivity, "Pessoa não encontrada", Toast.LENGTH_SHORT).show()
+                        finish()
+                    }
                 }
             }
+
+            btnClose.setOnClickListener { finish() }
+        } catch (e: Exception) {
+            Toast.makeText(this, "Erro ao carregar: ${e.message}", Toast.LENGTH_LONG).show()
+            android.util.Log.e("ViewPessoaActivity", "Erro: ", e)
+            finish()
         }
-
-        btnClose.setOnClickListener { finish() }
-    }
-
-    private fun bind(p: Pessoa, tvNome: TextView, tvEmail: TextView, tvTelefone: TextView, tvCpf: TextView, tvIdade: TextView, tvEndereco: TextView) {
-        tvNome.text = p.nome ?: "-"
-        tvEmail.text = p.email ?: "-"
-        tvTelefone.text = p.telefone ?: "-"
-        tvCpf.text = p.cpf ?: "-"
-        tvIdade.text = p.idade?.toString() ?: "-"
-        tvEndereco.text = getString(
-            R.string.form_address_format,
-            p.logradouro ?: "",
-            p.numero?.toString() ?: "",
-            p.complemento ?: ""
-        )
     }
 }

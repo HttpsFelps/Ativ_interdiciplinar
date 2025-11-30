@@ -9,6 +9,12 @@ android {
         version = release(36)
     }
 
+    // Especificar toolchain Java
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+
     defaultConfig {
         applicationId = "com.example.ativ_interdiciplinar"
         minSdk = 24
@@ -28,13 +34,11 @@ android {
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
+
     kotlinOptions {
         jvmTarget = "11"
     }
+
     buildFeatures {
         viewBinding = true
     }

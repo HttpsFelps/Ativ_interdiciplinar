@@ -38,7 +38,9 @@ class PessoaAdapter(
     fun getSelectedPessoa(): Pessoa? {
         return if (selectedPosition != RecyclerView.NO_POSITION && selectedPosition < items.size) {
             items[selectedPosition]
-        } else null
+        } else {
+            null
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -57,6 +59,8 @@ class PessoaAdapter(
         holder.tvNome.text = p.nome ?: "—"
         holder.tvEmail.text = p.email ?: "—"
         holder.tvTelefone.text = p.telefone ?: "—"
+        holder.tvCpf.text = p.cpf ?: "—"
+        holder.tvIdade.text = if (p.idade != null) "${p.idade} anos" else "—"
 
         // highlight selected
         val card = holder.itemView as? CardView
@@ -82,5 +86,7 @@ class PessoaAdapter(
         val tvNome: TextView = view.findViewById(R.id.tvNome)
         val tvEmail: TextView = view.findViewById(R.id.tvEmail)
         val tvTelefone: TextView = view.findViewById(R.id.tvTelefone)
+        val tvCpf: TextView = view.findViewById(R.id.tvCpf)
+        val tvIdade: TextView = view.findViewById(R.id.tvIdade)
     }
 }
