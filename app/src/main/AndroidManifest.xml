@@ -24,6 +24,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.CreatePessoaActivity" />
+        <activity android:name=".ui.ViewPessoaActivity" />
+        <activity android:name=".ui.UpdatePessoaActivity" />
+        <activity android:name=".ui.DeletePessoaActivity" />
     </application>
 
 </manifest>

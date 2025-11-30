@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Ativ_interdiciplinar</string>
+    <string name="form_address_format">%1$s, %2$s %3$s</string>
 </resources>

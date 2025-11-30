@@ -85,4 +85,22 @@ class PessoaViewModel : ViewModel() {
             }
         }
     }
+
+    fun getPessoaById(id: Int, onResult: (Pessoa?) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val resp = repository.getPessoaById(id)
+                if (resp.isSuccessful) {
+                    onResult(resp.body())
+                    _error.value = null
+                } else {
+                    _error.value = "Erro ao buscar: ${resp.code()} ${resp.message()}"
+                    onResult(null)
+                }
+            } catch (e: Exception) {
+                _error.value = "Exceção: ${e.localizedMessage}"
+                onResult(null)
+            }
+        }
+    }
 }

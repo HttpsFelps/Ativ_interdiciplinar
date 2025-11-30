@@ -12,6 +12,8 @@ class PessoaRepository {
 
     suspend fun getPessoa(id: Int): Response<Pessoa> = api.getPessoa(id)
 
+    suspend fun getPessoaById(id: Int): Response<Pessoa> = api.getPessoa(id)
+
     suspend fun createPessoa(payload: Map<String, Any>): Response<Pessoa> = api.createPessoa(payload)
 
     suspend fun updatePessoa(id: Int, payload: Map<String, Any>): Response<Pessoa> = api.updatePessoa(id, payload)
