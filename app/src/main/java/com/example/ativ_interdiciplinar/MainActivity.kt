@@ -28,8 +28,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         adapter = PessoaAdapter { pessoa, position ->
-            // Ao clicar no item — seleciona e preenche visualmente via adapter
+            // Ao clicar no item — seleciona e habilita botões
             adapter.selectPosition(position)
+            onPessoaSelected(pessoa, position)
         }
 
         // Configura RecyclerView
@@ -40,6 +41,11 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             viewModel.pessoas.collectLatest { lista ->
                 adapter.update(lista)
+                // Ao atualizar a lista, limpar seleção e desabilitar ações
+                adapter.clearSelection()
+                binding.btnGetById.isEnabled = false
+                binding.btnUpdate.isEnabled = false
+                binding.btnDelete.isEnabled = false
             }
         }
 
@@ -56,6 +62,11 @@ class MainActivity : AppCompatActivity() {
         binding.btnCreate.setOnClickListener {
             startActivity(Intent(this, com.example.ativ_interdiciplinar.ui.CreatePessoaActivity::class.java))
         }
+
+        // Inicialmente não é possível visualizar/atualizar/deletar sem seleção
+        binding.btnGetById.isEnabled = false
+        binding.btnUpdate.isEnabled = false
+        binding.btnDelete.isEnabled = false
 
         binding.btnGetById.setOnClickListener {
             val selected = getSelectedPessoa()
@@ -102,5 +113,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun getSelectedPessoa(): com.example.ativ_interdiciplinar.data.Pessoa? {
         return adapter.getSelectedPessoa()
+    }
+
+    private fun onPessoaSelected(pessoa: com.example.ativ_interdiciplinar.data.Pessoa, position: Int) {
+        // habilita botões quando um item é selecionado
+        binding.btnGetById.isEnabled = true
+        binding.btnUpdate.isEnabled = true
+        binding.btnDelete.isEnabled = true
     }
 }

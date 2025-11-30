@@ -29,6 +29,12 @@ class PessoaAdapter(
         notifyItemChanged(position)
     }
 
+    fun clearSelection() {
+        val previous = selectedPosition
+        selectedPosition = RecyclerView.NO_POSITION
+        if (previous != RecyclerView.NO_POSITION) notifyItemChanged(previous)
+    }
+
     fun getSelectedPessoa(): Pessoa? {
         return if (selectedPosition != RecyclerView.NO_POSITION && selectedPosition < items.size) {
             items[selectedPosition]

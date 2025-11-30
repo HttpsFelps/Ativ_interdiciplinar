@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +14,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.ativ_interdiciplinar.R
 import com.example.ativ_interdiciplinar.data.Pessoa
 import com.example.ativ_interdiciplinar.viewmodel.PessoaViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity() {
                 intent.putExtra("pessoa_id", p.id)
                 startActivity(intent)
             } else {
-                Toast.makeText(this, "Selecione uma pessoa na lista", Toast.LENGTH_SHORT).show()
+                Snackbar.make(rvPessoas, "Selecione uma pessoa na lista", Snackbar.LENGTH_SHORT).show()
             }
         }
 
@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity() {
                 intent.putExtra("pessoa_id", p.id)
                 startActivity(intent)
             } else {
-                Toast.makeText(this, "Selecione uma pessoa na lista", Toast.LENGTH_SHORT).show()
+                Snackbar.make(rvPessoas, "Selecione uma pessoa na lista", Snackbar.LENGTH_SHORT).show()
             }
         }
 
@@ -104,11 +104,12 @@ class MainActivity : AppCompatActivity() {
                     runOnUiThread {
                         Toast.makeText(this, "Deletado com sucesso", Toast.LENGTH_SHORT).show()
                         pessoaSelecionada = null
-                        adapter.selectPosition(RecyclerView.NO_POSITION)
+                        adapter.clearSelection()
+                        viewModel.loadPessoas()
                     }
                 }
             } else {
-                Toast.makeText(this, "Selecione uma pessoa na lista", Toast.LENGTH_SHORT).show()
+                Snackbar.make(rvPessoas, "Selecione uma pessoa na lista", Snackbar.LENGTH_SHORT).show()
             }
         }
     }
